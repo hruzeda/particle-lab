@@ -1,6 +1,7 @@
-#pragma once
+#ifndef COMMANDQUEUE_H
+#define COMMANDQUEUE_H
 
-#include "./Command.hpp"
+#include "Command.h"
 
 #include <queue>
 
@@ -14,3 +15,5 @@ public:
 private:
     std::queue<Command> mQueue;
 };
+
+#endif // COMMANDQUEUE_H

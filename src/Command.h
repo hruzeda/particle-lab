@@ -1,7 +1,8 @@
-#pragma once
+#ifndef COMMAND_H
+#define COMMAND_H
 
-#include "./Category.hpp"
-#include "./SpriteContainer.hpp"
+#include "Category.h"
+#include "SpriteContainer.h"
 
 #include <SFML/System/Time.hpp>
 
@@ -21,7 +22,7 @@ struct Command
 template <typename GameObject, typename Function>
 Command::Action derivedAction(Function fn)
 {
-    return [=](SceneNode &node, sf::Time dt)
+    return [=](SpriteContainer &node, sf::Time dt)
     {
         // Check if cast is safe
         assert(dynamic_cast<GameObject *>(&node) != nullptr);
@@ -30,3 +31,5 @@ Command::Action derivedAction(Function fn)
         fn(static_cast<GameObject &>(node), dt);
     };
 }
+
+#endif // COMMAND_H

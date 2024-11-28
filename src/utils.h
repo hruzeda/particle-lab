@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -38,3 +39,5 @@ float length(sf::Vector2f vector);
 sf::Vector2f unitVector(sf::Vector2f vector);
 
 #include "utils.inl"
+
+#endif // UTILS_H

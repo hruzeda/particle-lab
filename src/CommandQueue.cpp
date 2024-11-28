@@ -1,5 +1,5 @@
-#include <CommandQueue.hpp>
-#include <SpriteContainer.hpp>
+#include "CommandQueue.h"
+#include "SpriteContainer.h"
 
 void CommandQueue::push(const Command &command)
 {

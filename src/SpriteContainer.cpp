@@ -1,6 +1,6 @@
-#include "SpriteContainer.hpp"
-#include "Command.hpp"
-#include "utils.hpp"
+#include "SpriteContainer.h"
+#include "CommandQueue.h"
+#include "utils.h"
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -10,7 +10,7 @@
 #include <cassert>
 #include <cmath>
 
-SpriteContainer::SpriteContainer(Category::Type category, PhysicsWorld &world, Entity entity)
+SpriteContainer::SpriteContainer(PhysicsWorld &world, Entity entity, Category::Type category)
 	: mChildren(), mParent(nullptr), mDefaultCategory(category), RigidBody(world, entity)
 {
 }
@@ -106,12 +106,14 @@ sf::Transform SpriteContainer::getWorldTransform() const
 void SpriteContainer::onCommand(const Command &command, sf::Time dt)
 {
 	// Command current node, if category matches
-	if (command.category & getCategory())
+	if (command.category & getCategory()) {
 		command.action(*this, dt);
+	}
 
 	// Command children
-	for (auto &child : mChildren)
+	for (auto &child : mChildren) {
 		child->onCommand(command, dt);
+	}
 }
 
 unsigned int SpriteContainer::getCategory() const

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../SpriteContainer.hpp"
+#include "../SpriteContainer.h"
 #include <SFML/Graphics.hpp>
 
 class Quark : public SpriteContainer

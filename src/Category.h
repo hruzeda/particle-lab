@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CATEGORY_H
+#define CATEGORY_H
 
 // Entity/scene node category, used to dispatch commands
 namespace Category
@@ -9,3 +10,5 @@ namespace Category
 		Sprite = 1
 	};
 }
+
+#endif // CATEGORY_H

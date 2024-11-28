@@ -1,7 +1,7 @@
-#pragma once
+#ifndef SPRITECONTAINER_H
+#define SPRITECONTAINER_H
 
-#include "./Category.hpp"
-#include "./CommandQueue.hpp"
+#include "Category.h"
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>
@@ -16,6 +16,9 @@
 
 using namespace reactphysics3d;
 
+class CommandQueue;
+class Command;
+
 class SpriteContainer : public sf::Transformable, public sf::Drawable, public RigidBody, sf::NonCopyable
 {
 public:
@@ -23,7 +26,7 @@ public:
     typedef std::pair<SpriteContainer *, SpriteContainer *> Pair;
 
 public:
-    explicit SpriteContainer(Category::Type category = Category::None, PhysicsWorld &world, Entity entity);
+    explicit SpriteContainer(PhysicsWorld &world, Entity entity, Category::Type category = Category::None);
 
     void attachChild(Ptr child);
     Ptr detachChild(const SpriteContainer &node);
@@ -60,3 +63,5 @@ private:
 
 bool collision(const SpriteContainer &lhs, const SpriteContainer &rhs);
 float distance(const SpriteContainer &lhs, const SpriteContainer &rhs);
+
+#endif // SPRITECONTAINER_H

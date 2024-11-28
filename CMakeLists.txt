@@ -16,17 +16,16 @@ FetchContent_Declare(SFML
 
 add_executable(
     main
-    src/main.h
     src/main.cpp
-    src/particles/Quark.hpp
+    src/particles/Quark.h
     src/particles/Quark.cpp
-    src/Command.hpp
+    src/Command.h
     src/Command.cpp
-    src/CommandQueue.hpp
+    src/CommandQueue.h
     src/CommandQueue.cpp
-    src/SpriteContainer.hpp
+    src/SpriteContainer.h
     src/SpriteContainer.cpp
-    src/utils.hpp
+    src/utils.h
     src/utils.cpp
     src/utils.inl
 )

@@ -1,8 +1,9 @@
-#include "Quark.hpp"
+#include "Quark.h"
+#include "../SpriteContainer.h"
 
 using namespace reactphysics3d;
 
-Quark::Quark(sf::Color color, sf::Vector2f position, const std::string &text, PhysicsWorld &world, Entity entity) : SpriteContainer(Category::Sprite, world, entity)
+Quark::Quark(sf::Color color, sf::Vector2f position, const std::string &text, PhysicsWorld &world, Entity entity) : SpriteContainer(world, entity, Category::Sprite)
 {
     setPosition(position);
 

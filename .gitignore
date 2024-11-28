@@ -1,6 +1,14 @@
+_deps
+
+CMakeFiles
 build
 out
+
 .cache
 .idea
 .vs
 .vscode
+
+CMakeCache.txt
+Makefile
+*.cmake
