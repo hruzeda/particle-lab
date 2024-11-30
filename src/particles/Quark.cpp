@@ -1,26 +1,27 @@
-#include "Quark.h"
-#include "../SpriteContainer.h"
+#include "../../inc/particles/Quark.h"
 
-using namespace reactphysics3d;
+// using namespace reactphysics3d;
 
-Quark::Quark(sf::Color color, sf::Vector2f position, const std::string &text, PhysicsWorld &world, Entity entity) : SpriteContainer(world, entity, Category::Sprite)
-{
-    setPosition(position);
+Quark::Quark(sf::Color color, const std::string &text) {
+  shape.setRadius(10.f);
+  shape.setPosition(sf::Vector2f(0.f, 0.f));
+  shape.setFillColor(color);
 
-    shape = sf::CircleShape(10.f);
-    shape.setFillColor(color);
-
-    if (!font.loadFromFile("PermanentMarker-Regular.ttf"))
-    {
-        // Handle error
-    }
-    label = sf::Text(text, font, 20u);
-    label.setFillColor(sf::Color::White);
-    label.setPosition(1.f, 1.f);
+  if (!font.loadFromFile("PermanentMarker-Regular.ttf")) {
+    // Handle error
+  }
+  label.setFont(font);
+  label.setString(text);
+  label.setCharacterSize(15);
+  label.setFillColor(sf::Color::White);
+  label.setPosition(5.5f, -1.25f);
 }
 
-UpQuark::UpQuark(sf::Color color, sf::Vector2f position, PhysicsWorld &world, Entity entity)
-    : Quark(color, position, "u", world, entity) {}
+void Quark::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  target.draw(shape, states);
+  target.draw(label, states);
+}
 
-DownQuark::DownQuark(sf::Color color, sf::Vector2f position, PhysicsWorld &world, Entity entity)
-    : Quark(color, position, "d", world, entity) {}
+UpQuark::UpQuark(sf::Color color) : Quark(color, "U") {}
+
+DownQuark::DownQuark(sf::Color color) : Quark(color, "D") {}
