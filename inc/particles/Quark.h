@@ -9,29 +9,25 @@
 
 class Quark : public SpriteNode {
  public:
-  Quark(sf::Color color, const std::string &text);
+  enum Type { Up, Down, Strange, Charm, Top, Bottom };
+  Quark(int identifier, Type type);
 
   // Delete copy constructor and copy assignment operator
   Quark(const Quark &) = delete;
   Quark &operator=(const Quark &) = delete;
 
+  int getIdentifier() const { return identifier; }
+  Type getType() const { return type; }
+
   void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
  protected:
-  sf::Color _color;
-  mutable sf::CircleShape shape;
-  mutable sf::Text label;
-  mutable sf::Font font;
-};
-
-class UpQuark : public Quark {
- public:
-  UpQuark(sf::Color color);
-};
-
-class DownQuark : public Quark {
- public:
-  DownQuark(sf::Color color);
+  int identifier;
+  Type type;
+  sf::Color color;
+  sf::CircleShape shape;
+  sf::Text label;
+  sf::Font font;
 };
 
 #endif  // QUARK_HEADER

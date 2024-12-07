@@ -34,15 +34,11 @@ add_executable(
   inc/engine/Entity.h
   inc/engine/Foreach.h
   inc/states/GameOverState.h
-  inc/engine/GameServer.h
   inc/states/GameState.h
   inc/engine/KeyBinding.h
   inc/engine/Label.h
   inc/states/MenuState.h
-  inc/states/MultiplayerGameState.h
   inc/engine/MusicPlayer.h
-  inc/engine/NetworkNode.h
-  inc/engine/NetworkProtocol.h
   inc/engine/Particle.h
   inc/engine/ParticleNode.h
   inc/states/PauseState.h
@@ -78,14 +74,11 @@ add_executable(
   src/engine/EmitterNode.cpp
   src/engine/Entity.cpp
   src/states/GameOverState.cpp
-  src/engine/GameServer.cpp
   src/states/GameState.cpp
   src/engine/KeyBinding.cpp
   src/engine/Label.cpp
   src/states/MenuState.cpp
-  src/states/MultiplayerGameState.cpp
   src/engine/MusicPlayer.cpp
-  src/engine/NetworkNode.cpp
   src/states/PauseState.cpp
   src/engine/ParticleNode.cpp
   src/engine/Pickup.cpp
@@ -106,8 +99,8 @@ add_executable(
   inc/particles/Quark.h
   src/particles/Quark.cpp)
 
-target_link_libraries(main PRIVATE sfml-system sfml-network sfml-graphics
-                                   sfml-window sfml-audio)
+target_link_libraries(main PRIVATE sfml-system sfml-graphics sfml-window
+                                   sfml-audio)
 
 find_package(ReactPhysics3D REQUIRED)
 

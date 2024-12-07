@@ -6,7 +6,6 @@
 
 #include "../../inc/engine/CommandQueue.h"
 #include "../../inc/engine/DataTables.h"
-#include "../../inc/engine/NetworkNode.h"
 #include "../../inc/engine/Pickup.h"
 #include "../../inc/engine/ResourceHolder.h"
 #include "../../inc/engine/SoundNode.h"
@@ -108,20 +107,6 @@ void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands) {
                                         ? SoundEffect::Explosion1
                                         : SoundEffect::Explosion2;
       playLocalSound(commands, soundEffect);
-
-      // Emit network game action for enemy explosions
-      if (!isAllied()) {
-        sf::Vector2f position = getWorldPosition();
-
-        Command command;
-        command.category = Category::Network;
-        command.action =
-            derivedAction<NetworkNode>([position](NetworkNode& node, sf::Time) {
-              node.notifyGameAction(GameActions::EnemyExplode, position);
-            });
-
-        commands.push(command);
-      }
 
       mExplosionBegan = true;
     }

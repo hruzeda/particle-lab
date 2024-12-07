@@ -6,9 +6,9 @@
 
 GameState::GameState(StateStack& stack, Context context)
     : State(stack, context),
-      mWorld(*context.window, *context.fonts, *context.sounds, false),
+      mWorld(*context.window, *context.fonts, *context.sounds),
       mPlayer(nullptr, 1, context.keys1) {
-  mWorld.addAircraft(1);
+  mWorld.addParticle(1, Quark::Up);
   mPlayer.setMissionStatus(Player::MissionRunning);
 
   // Play game theme
@@ -19,14 +19,6 @@ void GameState::draw() { mWorld.draw(); }
 
 bool GameState::update(sf::Time dt) {
   mWorld.update(dt);
-
-  if (!mWorld.hasAlivePlayer()) {
-    mPlayer.setMissionStatus(Player::MissionFailure);
-    requestStackPush(States::GameOver);
-  } else if (mWorld.hasPlayerReachedEnd()) {
-    mPlayer.setMissionStatus(Player::MissionSuccess);
-    requestStackPush(States::MissionSuccess);
-  }
 
   CommandQueue& commands = mWorld.getCommandQueue();
   mPlayer.handleRealtimeInput(commands);

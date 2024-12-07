@@ -4,7 +4,6 @@
 #include "../inc/states/GameOverState.h"
 #include "../inc/states/GameState.h"
 #include "../inc/states/MenuState.h"
-#include "../inc/states/MultiplayerGameState.h"
 #include "../inc/states/PauseState.h"
 #include "../inc/states/SettingsState.h"
 #include "../inc/states/State.h"
@@ -14,7 +13,7 @@
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application()
-    : mWindow(sf::VideoMode(1024, 768), "Network", sf::Style::Close),
+    : mWindow(sf::VideoMode(1024, 768), "Particle Lab", sf::Style::Close),
       mTextures(),
       mFonts(),
       mMusic(),
@@ -104,8 +103,6 @@ void Application::registerStates() {
   mStateStack.registerState<TitleState>(States::Title);
   mStateStack.registerState<MenuState>(States::Menu);
   mStateStack.registerState<GameState>(States::Game);
-  mStateStack.registerState<MultiplayerGameState>(States::HostGame, true);
-  mStateStack.registerState<MultiplayerGameState>(States::JoinGame, false);
   mStateStack.registerState<PauseState>(States::Pause);
   mStateStack.registerState<PauseState>(States::NetworkPause, true);
   mStateStack.registerState<SettingsState>(States::Settings);
