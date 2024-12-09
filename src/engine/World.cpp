@@ -23,9 +23,9 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts,
       mSounds(sounds),
       mSceneGraph(),
       mSceneLayers(),
-      mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 5000.f),
+      mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y),
       mSpawnPosition(mWorldView.getSize().x / 2.f,
-                     mWorldBounds.height - mWorldView.getSize().y / 2.f),
+                     mWorldView.getSize().y / 2.f),
       mParticles(),
       mFinishSprite(nullptr) {
   mSceneTexture.create(mTarget.getSize().x, mTarget.getSize().y);
@@ -38,8 +38,8 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts,
 }
 
 void World::update(sf::Time dt) {
-  // FOREACH(Quark* a, mParticles)
-  // a->setVelocity(0.f, 0.f);
+  FOREACH(Quark * a, mParticles)
+  a->setVelocity(0.f, 0.f);
 
   // Setup commands to destroy entities, and guide missiles
   // destroyEntitiesOutsideView();
@@ -99,7 +99,7 @@ void World::removeParticle(int identifier) {
 }
 
 Quark* World::addParticle(int identifier, Quark::Type type) {
-  std::unique_ptr<Quark> player(new Quark(identifier, type));
+  std::unique_ptr<Quark> player(new Quark(identifier, type, mFonts));
   player->setPosition(mWorldView.getCenter());
 
   mParticles.push_back(player.get());
@@ -117,7 +117,6 @@ void World::setWorldHeight(float height) { mWorldBounds.height = height; }
 
 void World::loadTextures() {
   mTextures.load(Textures::Entities, "media/Textures/Entities.png");
-  mTextures.load(Textures::Jungle, "media/Textures/Jungle.png");
   mTextures.load(Textures::Explosion, "media/Textures/Explosion.png");
   mTextures.load(Textures::Particle, "media/Textures/Particle.png");
   mTextures.load(Textures::FinishLine, "media/Textures/FinishLine.png");
@@ -213,20 +212,6 @@ void World::buildScene() {
 
     mSceneGraph.attachChild(std::move(layer));
   }
-
-  // Prepare the tiled background
-  sf::Texture& jungleTexture = mTextures.get(Textures::Jungle);
-  jungleTexture.setRepeated(true);
-
-  float viewHeight = mWorldView.getSize().y;
-  sf::IntRect textureRect(mWorldBounds);
-  textureRect.height += static_cast<int>(viewHeight);
-
-  // Add the background sprite to the scene
-  std::unique_ptr<SpriteNode> jungleSprite(
-      new SpriteNode(jungleTexture, textureRect));
-  jungleSprite->setPosition(mWorldBounds.left, mWorldBounds.top - viewHeight);
-  mSceneLayers[Background]->attachChild(std::move(jungleSprite));
 
   // Add the finish line to the scene
   sf::Texture& finishTexture = mTextures.get(Textures::FinishLine);

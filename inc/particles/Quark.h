@@ -3,14 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../inc/engine/SpriteNode.h"
+#include "../../inc/engine/Entity.h"
+#include "../../inc/engine/TextNode.h"
 
 // using namespace reactphysics3d;
 
-class Quark : public SpriteNode {
+class Quark : public Entity {
  public:
   enum Type { Up, Down, Strange, Charm, Top, Bottom };
-  Quark(int identifier, Type type);
+  Quark(int identifier, Type type, const FontHolder &fonts);
 
   // Delete copy constructor and copy assignment operator
   Quark(const Quark &) = delete;
@@ -25,9 +26,9 @@ class Quark : public SpriteNode {
   int identifier;
   Type type;
   sf::Color color;
-  sf::CircleShape shape;
-  sf::Text label;
   sf::Font font;
+  sf::CircleShape shape;
+  TextNode *mLabel;
 };
 
 #endif  // QUARK_HEADER

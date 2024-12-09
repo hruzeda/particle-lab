@@ -7,8 +7,6 @@
 
 SettingsState::SettingsState(StateStack& stack, Context context)
     : State(stack, context), mGUIContainer() {
-  mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
-
   // Build key binding buttons and labels
   for (std::size_t x = 0; x < 2; ++x) {
     addButtonLabel(PlayerAction::MoveLeft, x, 0, "Move Left", context);
@@ -32,7 +30,6 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 void SettingsState::draw() {
   sf::RenderWindow& window = *getContext().window;
 
-  window.draw(mBackgroundSprite);
   window.draw(mGUIContainer);
 }
 

@@ -1,30 +1,28 @@
 #include "../../inc/particles/Quark.h"
 
+#include <cmath>
+
 // using namespace reactphysics3d;
 
-Quark::Quark(int identifier, Quark::Type type)
-    : SpriteNode(sf::Texture(), sf::IntRect(0, 0, 20, 20)),
+Quark::Quark(int identifier, Quark::Type type, const FontHolder& fonts)
+    : Entity(1),
       identifier(identifier),
       type(type),
       color(sf::Color::Red),
       shape(10),
-      label(),
       font() {
   shape.setRadius(10.f);
-  shape.setPosition(sf::Vector2f(0.f, 0.f));
+  sf::FloatRect bounds = shape.getLocalBounds();
+  shape.setOrigin(std::floor(bounds.left + bounds.width / 2.f),
+                  std::floor(bounds.top + bounds.height / 2.f));
   shape.setFillColor(color);
 
-  if (!font.loadFromFile("PermanentMarker-Regular.ttf")) {
-    // Handle error
-  }
-  label.setFont(font);
-  label.setString("U");
-  label.setCharacterSize(15);
-  label.setFillColor(sf::Color::White);
-  label.setPosition(5.5f, -1.25f);
+  std::unique_ptr<TextNode> label(new TextNode(fonts, "U"));
+  mLabel = label.get();
+  mLabel->setPosition(5.5f, -1.25f);
+  attachChild(std::move(label));
 }
 
-void Quark::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void Quark::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   target.draw(shape, states);
-  target.draw(label, states);
 }

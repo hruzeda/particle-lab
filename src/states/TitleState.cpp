@@ -10,8 +10,6 @@ TitleState::TitleState(StateStack& stack, Context context)
       mText(),
       mShowText(true),
       mTextEffectTime(sf::Time::Zero) {
-  mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
-
   mText.setFont(context.fonts->get(Fonts::Main));
   mText.setString("Press any key to start");
   centerOrigin(mText);
@@ -20,7 +18,6 @@ TitleState::TitleState(StateStack& stack, Context context)
 
 void TitleState::draw() {
   sf::RenderWindow& window = *getContext().window;
-  window.draw(mBackgroundSprite);
 
   if (mShowText) window.draw(mText);
 }
